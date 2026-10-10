@@ -79,3 +79,5 @@ At base:
 this looks so goofy
 
 - Controller tbd (cannot find a good one with a decent range)
+
+tl:dr I will need a pcb to commicate from and to the servo control board.
