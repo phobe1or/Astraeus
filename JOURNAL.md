@@ -36,6 +36,7 @@ very cool very cool
 If you chose to copy this project, please do it with proper caution and experience. I have made amateur rockets before, and I have always wanted to make a turbine. Additionally, if I had created an electric jet of this caliber, it would last only 3 minutes, but a conventional model jet can last 7 minutes. In the US, making this is no issue, but I would have to be registered in the FAA Dronezone with a TRUST certificate, complete line of sight with a spotter at all times, and an Academy of Model Aeronautics (AMA) turbine waiver. For safety, I will consult with my good friend equipped with knowledge regarding subjects like these and flyers in the AMA.
 
 Anyways, an example plane in this range looks like this:
+
 ![image](https://halflife.hackclub-assets.com/hackclub-half-life/sessions/8WQmkKLbXNN01APgAdyJ0e2s2cFNJRsT/230004625a1f371b108a06f63441b9ff170bfecc5e93d3db3405f493b9a0cd15.png)
 
 Due to this, a conventional wingspan of around 2 meters seems fit (we shall arrange later), guessing the total length to be 80 inches, and by using a 1:1.2 thrust to weight ratio, the plane shall weigh 18 lbs, aiming for a 10 minute flight time. For this weeks goal, I want to create the pcb to be able to control 2 cameras, 12 servos, LEDs, a receiver, a gyro module, a Kerosene glow plug, a solenoid, and a pump like the KP300 BL.
@@ -76,6 +77,7 @@ At base:
 - example goggles: https://shorturl.at/5V4mt
 
 ![image](https://halflife.hackclub-assets.com/hackclub-half-life/sessions/8WQmkKLbXNN01APgAdyJ0e2s2cFNJRsT/04d8b8c2bd03b61e98e70842610c2bbe2603831a7d94f6893687780afc698d1a.png)
+
 this looks so goofy
 
 - Controller tbd (cannot find a good one with a decent range)
