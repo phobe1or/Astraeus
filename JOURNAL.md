@@ -10,7 +10,7 @@
 
 | Week | Tier | Hours logged | Entries |
 | --- | --- | --- | --- |
-| Week 1 | Tier 3 | 19h | 2 |
+| Week 1 | Tier 3 | 21h | 2 |
 
 ## Contents
 
@@ -87,7 +87,7 @@ tl:dr I will need a pcb to commicate from and to the servo control board.
 
 ### 2026-10-10 – Ok, scrap the idea about the rc plen, I do not need it anymore
 
-**13h**
+**15h**
 
 Ok, scrap the idea about the rc plen, I do not need it anymore
 
@@ -98,561 +98,60 @@ So, what made me do this? The rc plen might spark safety concerns even though of
 ### This session is for finding the pieces for the pcb.
 Next will be for routing it
 
-So, let's begin with what we need... To find this, I needed to learn a bunch about college chemistry and Pcb manufacturing, taking around 9 hours itself due to the sheer amount of changing tech. For example, there are at least a thousand **types** of prepregs, which are the "glue" between layers of a pcb. Oh well, I created the process in this sheet (the formatting is weird since I used a docx to md converter):
+So, let's begin with what we need... To find this, I needed to learn a bunch about college chemistry and Pcb manufacturing, taking around 9 hours itself due to the sheer amount of changing tech. For example, there are at least a thousand **types** of prepregs, which are the "glue" between layers of a pcb. Oh well, I created the process in this sheet: https://docs.google.com/document/d/1HybZoYyErl1gmFVnXeUgwFFzg2rn5WeTi7mzsqJc-rA/edit?usp=sharing
 
-<details>
-  <summary>PCB Manufacturing </summary>
+These 10 pages itself took literally 8 hours... too much info, I had to learn a pcb architecture college class
 
-**PCB Manufacturing!**
+Next, another main usage of this would be in Robotics and supersonic amateur rocketry for pathfinding. I seek to make the entire match autonomous (without ai, so I have to use heavy neural networks), which has never been done before. Also, if I do build that rc plen, I will need long range telemetry on this board. On the 6th week, I'll choose one of these projects to do (not plen). To do this, I will need decent computing using an STM32H7. I also wanna play some games like pokemon red, so the flash and ram has to be pretty fast. Specifically, this one:
 
-Creators: Dhanvanth Selvam
+![image](https://halflife.hackclub-assets.com/hackclub-half-life/sessions/8WQmkKLbXNN01APgAdyJ0e2s2cFNJRsT/d3bd605f6212e7a2176f96a48d93779f4c69e0fbcdeee9e918223153865dbf37.png)
 
-**Intro**
+I chose sdram due to it costing much less than sram and its good speed, specifically this one because i needed 128 mbits :
 
-(for later)
+![image](https://halflife.hackclub-assets.com/hackclub-half-life/sessions/8WQmkKLbXNN01APgAdyJ0e2s2cFNJRsT/ca7443dc61135b74270dc737f73e932a31eeb797a82ab9b30c12c42a22943329.png)
 
-**Process**
+for flash, i needed something with 32mb to run offbrand pokemon games and i chose this one because it also had 16 soic (basicly 16 pins on it) which reduced board complexity (due to less routing) for good speed due to the quad spi (a type of data transfer)
 
-\*transport using vacuum handlers
+![image](https://halflife.hackclub-assets.com/hackclub-half-life/sessions/8WQmkKLbXNN01APgAdyJ0e2s2cFNJRsT/704f8002c86b3b5c181199e4d2a97286bdaf2c8bc619f8099d8dccc2e4198bf7.png)
 
-\*add carbon black line later
+For the low speed clock (used to count long times frames accurately) i chose this because 32.768 kHz (because 2^15 = 32768), a frequency tolerance of + or - 20 ppm (for precision) and a good package (surround chip shape) of 2-smd no lead.
 
-\*add msap line later
+![image](https://halflife.hackclub-assets.com/hackclub-half-life/sessions/8WQmkKLbXNN01APgAdyJ0e2s2cFNJRsT/7d48a58454fde5052c1651164aef401c3c6d13f414a47ad0b64b79d4d05791b0.png)
 
-\*determine photoresist type for temp and pressure
+For the high speed clock, suprisingly, it could be anywhere from 4 to 48 MHz, so that wasnt much of a concern. I chose this one because of the good esr, 50 ohms (internal resistance caused by stuff like impure metals), good frequency stability (30 ppm) and it being pretty small with a 4-smd package
 
-\*fix exposure optics
+![image](https://halflife.hackclub-assets.com/hackclub-half-life/sessions/8WQmkKLbXNN01APgAdyJ0e2s2cFNJRsT/819de3424bf1bfc0e20e63ebd594a49b06a3d8d8aa42b1932da4e6e0c0b47574.png)
 
-\*add other lines for other substrates than fr4
+the other parts arent really noteable, except the custom versions of adafruit's buck converters (youll see them later)
 
-Storage and Drill Module
+For trouble shooting and coding, i went with these:
 
--   Dry storage + drill section
+![image](https://halflife.hackclub-assets.com/hackclub-half-life/sessions/8WQmkKLbXNN01APgAdyJ0e2s2cFNJRsT/0473e8b805550784d39a37c226c000f2e9b10526cf74ea27abda4964dc8d2554.png)
 
--   Vacuum chuck, grounded to prevent static, filtration, drill with
-    > 300k rpm, uv + co2 laser + xray drilling, uv-vis spectroscopy
+![image](https://halflife.hackclub-assets.com/hackclub-half-life/sessions/8WQmkKLbXNN01APgAdyJ0e2s2cFNJRsT/a2d160f38ddb73ef67ebb02ee1a9bd17cd7eaf5bb4fb37b2c17ec81fc88faecd.png)
 
-    -   Source cores, cut with tungsten carbide bit with 24 - 30k rpm
+Other than that, there was buttons, leds, capacitors, resistors, and a coin battery (not noteable)
 
-    -   Send cores to bath module
+I pulled an all nighter to work on this (had to read the 633 page datasheet for the stm32 to learn what pins did what, and learn part of an electrical engineering course), and I'm running out of time to journal, so here is the progress... this actually took 34 hours but the log entry max time is 15 sadly
 
-    -   Source prepregs, cut with ultrasonic knife
+![image](https://halflife.hackclub-assets.com/hackclub-half-life/sessions/8WQmkKLbXNN01APgAdyJ0e2s2cFNJRsT/78a5b19ab16a7f8cf31b9b421aad06a2412dba4e0240aa5a7c12bee9f9960a04.png)
 
-    -   Send prepregs to press module
+![image](https://halflife.hackclub-assets.com/hackclub-half-life/sessions/8WQmkKLbXNN01APgAdyJ0e2s2cFNJRsT/14a07941d0374a89555b95a24882c6b0427893d1169803198e7c74eb6bd7c909.png)
 
-    -   Source 0.1mm aluminum foil, cut with knife
+![image](https://halflife.hackclub-assets.com/hackclub-half-life/sessions/8WQmkKLbXNN01APgAdyJ0e2s2cFNJRsT/f407c52e27d8d7144846112ffde94a0c029240a10c1c85d1ff17cb011f9a7e1a.png)
 
-    -   Send aluminum foil to drill module (here)
+buck converters
 
-    -   Source 1mm phenolic board, cut with drill
+![image](https://halflife.hackclub-assets.com/hackclub-half-life/sessions/8WQmkKLbXNN01APgAdyJ0e2s2cFNJRsT/32b110f2574b791d93c7ac2bdeb570aa0243d483e0d99e893afe26701266768e.png)
 
-    -   Send phenolic board to drill module (here)
+![image](https://halflife.hackclub-assets.com/hackclub-half-life/sessions/8WQmkKLbXNN01APgAdyJ0e2s2cFNJRsT/68368e437d1b8cef6fbfa95fcfbcb3f6ed85681069340062764c8339877cb348.png)
 
-    -   Source oxygen, nitrogen, carbon tetrafluoride, and/or hydrogen
+other stuff not wired yet
 
-    -   Send to press module
+![image](https://halflife.hackclub-assets.com/hackclub-half-life/sessions/8WQmkKLbXNN01APgAdyJ0e2s2cFNJRsT/082c7151200c39d192ceb8c9bd44bd4712422553c7c90bbf951d78596e86e6f1.png)
 
--   Wet storage section
+![image](https://halflife.hackclub-assets.com/hackclub-half-life/sessions/8WQmkKLbXNN01APgAdyJ0e2s2cFNJRsT/3db98ec8144f10e14da7f3957325cdf5c7897cd3af90b087e8d3cbbb3e00da22.png)
 
--   Peristaltic pumps, filtration
+![image](https://halflife.hackclub-assets.com/hackclub-half-life/sessions/8WQmkKLbXNN01APgAdyJ0e2s2cFNJRsT/b6035593d51de0f7a73297a20145bae99962acf276fa243ba8b64b4bb55a3d08.png)
 
-    -   Source di water
-
-    -   Source and mix electroless copper
-
-        -   Composed by:
-
-            -   Copper sulfate (8 - 15g/L)
-
-            -   Ethylenediaminetetraacetic acid (edta, 30 - 50g/L)
-
-            -   Sodium hydroxide (12 - 18g/L)
-
-            -   Formaldehyde (37% concentrate, 3 - 8 ml/L)
-
-            -   Alcohol ethoxylate (0.02 - 0.1g/L)
-
-            -   2,2\'-bipyridine (2 - 10ppm)
-
-            -   Di water (L)
-
-        -   Regenerated by:
-
-    -   Source and mix glass etchant
-
-        -   Composed by:
-
-            -   Ammonium bifluoride (crystaline, 3 - 6% volume, 30 -
-                > 60g/L)
-
-            -   Di water (91 - 96% volume)
-
-        -   Regenerated by:
-
-            -   Source and mix ammonium bifluoride (10% volume) and top
-                > off with di water
-
-            -   Once solution precipitates, dump fluid
-
-    -   Source and mix ionic cleaner
-
-        -   Composed by:
-
-            -   Monoethanolamine (mea, 20 - 50 ml/L)
-
-            -   Polyquaternium (1 - 5 g/L)
-
-            -   Alcohol ethoxylates (surfactant, 1 ml/L)
-
-            -   Di water (L)
-
-        -   Regenerated by:
-
-    -   Source and mix predip
-
-        -   Composed by:
-
-            -   Muriatic acid (150 - 250 ml/L)
-
-            -   Sodium chloride (20 - 50g)
-
-            -   Di water (L)
-
-        -   Regenerated by:
-
-    -   Source and mix pd/sn activator
-
-        -   Composed by:
-
-            -   Muriatic acid (150 - 250 ml/L)
-
-            -   Stannous chloride (15 - 30g)
-
-            -   Palladium chloride (0.1 - 0.5g)
-
-            -   Sodium stanate (4.5 - 7g/L)
-
-            -   Di water (L)
-
-            -   \+ tin balls on the bottom of the tank
-
-        -   Created by:
-
-            -   Dissolve stannous chloride (75 - 80g/L) in muriatic acid
-                > (?)
-
-            -   Add sodium stannate (7 - 8g/L)
-
-            -   Separately, dissolve palladium chloride (1 - 1.5g/L) in
-                > muriatic acid (?)
-
-            -   Slowly mix 2.5g stannous chloride into palladium
-                > solution at 25 - 35C
-
-            -   Mix for 12 - 15 minutes
-
-            -   Pour palladium solution into chloride solution
-
-            -   Dilute until it reaches (?) liters, heat at 60 - 70C for
-                > 4 - 6 hours, then cool and place tin balls
-
-        -   Regenerated by:
-
-            -   Source tin balls and replace
-
-            -   Source muriatic acid, pump out some of the liquid, and
-                > replace
-
-            -   When copper levels exceed 2g/L, pass through an ion
-                > exchange resin column?
-
-            -   How about precipitates?
-
-    -   Source and mix accelerator
-
-        -   Sodium hydroxide (40 - 80g/L)
-
-        -   Di water (L)
-
-    -   Source neg liquid photores
-
-    -   Send photores to print module
-
-    -   Source fillers: conductive and nonconductive epoxy with
-        > activators
-
-    -   Send fillers to drill module
-
-    -   Source and mix developer composed by:
-
-        -   Sodium hydroxide (3 - 5% volume)
-
-        -   Di water (95 - 97% volume)
-
-    -   Send developer to print module
-
-    -   Source and mix copper etchant composed by:
-
-        -   Hydrochloric acid (33% concentrate, 33% volume)
-
-        -   Hydrogen peroxide (100% concentrate, 67% volume)
-
-    -   Regenerate by:
-
-        -   Source and mix hydrochloric acid + hydrogen peroxide + o2,
-            > evaporate water and regen made by using this process
-            > cupric chloride
-
-        -   Condense and deionize water then store it
-
-    -   Send copper etchant to print module
-
-    -   Source and mix alkaline degreaser
-
-        -   composed by:
-
-            -   Saponifiers (1 - 5% volume): Sodium Carbonate or
-                > Potassium Carbonate
-
-            -   Surfactants (Non-ionic, low foaming, 0.5 - 2%): alcohol
-                > ethoxylates
-
-            -   Chelators: (1 - 2% volume): tetrapotassium pyrophosphate
-                > (TKPP)
-
-            -   Di water (90 - 97% volume)
-
-        -   Regenerated by: oil skimmer + particulate filtration
-
-            -   Source and mix saponifiers, surfactants, chelators to
-                > saponifier loss, and di water
-
-            -   Replenish saponifiers, surfactants and chelators
-                > proportional to saponifier loss, then top off to
-                > original volume with di water
-
-    -   Send degreaser to bath module
-
-    -   Source and mix acid cleaner
-
-        -   Composed by:
-
-            -   Sulfuric acid (5 - 10% volume)
-
-            -   Surfactants (low foaming, 0.5 - 1% volume): alcohol
-                > ethoxylates, alkoxylated alcohols?
-
-            -   Di water (89 - 94.5% volume)
-
-        -   Regenerated by:
-
-            -   Cool near 0C, then filter out copper sulfate crystals
-
-            -   Store copper sulfate
-
-            -   Source and mix sulfuric acid, surfactants, and di water
-
-            -   Replenish sulfuric acid and surfactants proportionally
-                > and top off to original volume with di water
-
-    -   Send cleaner to bath module
-
-    -   Source and mix acid microetch
-
-        -   Composed by:
-
-            -   Sulfuric acid (concentrate, 30 - 100g/L, 1 - 10% volume)
-
-            -   Hydrogen peroxide (30 - 35%, 15 - 40g/L, 1 - 10% volume)
-
-            -   Stabilizer (10 - 50 mg/L, 0.05 - 1% volume): ethylene
-                > glycol, organic amines?
-
-            -   Di water (L)
-
-        -   Regenerated by: electrowinning down to 15 - 20g/L copper
-            > concentration
-
-            -   NOTE CONVERT TO COPPER SULFATE IF TOO LITTLE
-
-    -   Source and mix electroplating solution
-
-        -   Composed by:
-
-            -   Copper sulfate pentahydrate (75 - 100g/L)
-
-            -   Sulfuric Acid (concentrated, 180 - 220g/L, 1 - 10%
-                > volume)
-
-            -   Hydrochloric Acid (30 - 50ppm)
-
-            -   PEG (200ppm)
-
-            -   SPS (40ppm)
-
-            -   JGB (8ppm)
-
-            -   Di water (L)
-
-        -   Regenerated by:
-
-            -   Phosphorized copper anodes (0.04 - 0.06% phosphorus)
-
-            -   Carbon filtration
-
-            -   Replenish PEG, SPS, and JGB by amp hour
-
-    -   Send electroplating solution to bath module
-
-    -   Source and mix electroplating solution
-
-        -   Composed by:
-
-            -   Copper sulfate pentahydrate (75 - 100g/L)
-
-            -   Sulfuric Acid (concentrated, 180 - 220g/L, 1 - 10%
-                > volume)
-
-            -   Hydrochloric Acid (30 - 50ppm)
-
-            -   PEG (200ppm)
-
-            -   SPS (40ppm)
-
-            -   JGB (8ppm)
-
-            -   Di water (L)
-
-        -   Regenerated by:
-
-            -   Phosphorized copper anodes (0.04 - 0.06% phosphorus)
-
-            -   Carbon filtration
-
-            -   Replenish PEG, SPS, and JGB by amp hour
-
-    -   Send electroplating solution to bath module
-
-    -   Source and mix nickel plating solution
-
-        -   For Modified Watt:
-
-            -   Composed by:
-
-                -   Nickel Sulfate (200 g/L)
-
-                -   Nickel Chloride (50g/L)
-
-                -   Boric acid (25 g/L)
-
-                -   Sodium lauryl sulfate (1 g/L)
-
-                -   Saccharin (0.1 - 5g/L)
-
-                -   Butynediol (0.1 - 0.5g/L)
-
-                -   Sodium Allyl Sulfonate (0.1 - 4g/L)
-
-                -   Di water (89 - 94.5% volume)
-
-            -   Regenerated by:
-
-                -   For later
-
-        -   Add sulfamate later
-
-    -   Send nickel plating solution to bath module
-
-    -   Gold or tin mixture (for later)
-
-    -   Lpi developer: 1% sodium carbonate
-
-Bath Module
-
-\*each bath holds 2 boards, can be expanded
-
--   Bath section
-
--   Filtration, heaters, condenser (to recover water), ultrasonic baths,
-    > pressurizer, peristaltic pumps
-
-    -   Import degreaser and heat to 50 - 65C in its bath
-
-    -   Import acid cleaner and heat from room temp - 40C in its bath
-
--   Spray section
-
-    -   Import di water and pressurize
-
-    -   Import microetch then pressurize, and keep at temp from 25 -
-        > 35C, if 40C+, then H~2~O~2~ decomposes
-
-    -   Heat and pressurize air
-
--   Import cores and degrease for 2 - 4 minutes, acid clean for 1 - 3
-    > minutes, and microetch for 1 - 2 minutes, and in between each
-    > step, spray wash
-
--   Send to print module
-
-Print Module
-
--   Spin coater, heater, exposure assembly (msla → collimator → convex
-    > lens → concave lens → collimator → resist), antivibration mount
-
--   Import cores
-
--   Import photores and spin coat
-
--   Harvest and store remaining photores
-
--   Soft bake for 75C - 80C for 20 - 25 minutes
-
--   Expose until both sides are cured for 1 - 3 minutes
-
--   Post bake for 110 - 130C for 15 - 30 minutes
-
--   Send to bath module
-
-Back to the Bath Module
-
--   Import di water
-
--   Pressurize and heat air
-
--   Import copper etchant, heat to 45 - 55C, and pressurize
-
--   Import developer and keep at 50 - 60C
-
--   Import cured cores and spray etch
-
--   Develop cured cores, once it has achieved break point, 1.5 - 2 times
-    > the time for total dev. time
-
--   Spray wash
-
--   Send to press section
-
-Press Section
-
--   Press, vacuum, rf source 100-500W
-
--   Import cores
-
--   Import prepreg
-
--   Press cores and prepreg (depends on type)
-
--   Send cores to bath module
-
-Back to the Drill Section\...
-
--   Import di water
-
--   Import etched cores
-
--   Import aluminum foil and phenolic then clip cores onto it
-
--   Import fillers and activate under vacuum
-
--   Drill vias down to 0.1mm
-
--   Drill microvias
-
--   To fill:
-
-    -   Use filler to fill too large holes and vippos
-
-    -   Or send directly to press section
-
-Back to the Press Section\...
-
--   Import gasses (carbon tetrafluoride + oxygen for fr4 and flex, or
-    > oxygen for teflon, proportions?)
-
--   Import cores
-
--   Put cores and gasses in a vacuum to remove photoresist and plasma
-    > desmear (timings?)
-
--   Send cores to bath module
-
-Back to the Bath Module
-
--   Import desmeared boards
-
--   Import glass etchant and heat to 20 - 30C
-
--   Import neutralizer and keep at room temp
-
--   Import ionic cleaner, microetch, predip solution, pd/sn activator,
-    > and accelerator
-
--   Import electroplating solution
-
--   Import di water and pressurize
-
--   Heat and pressurize air
-
--   Spray wash boards for 1 - 2 minutes
-
--   Glass etch, neutralize if fr4 board, and after each step spray wash
-
--   Use ionic cleaner for 5 - 10 minutes at 45 - 60C, microetch for 1 -
-    > 2 minutes at room temp, predip for 1 - 3 minutes at room temp,
-    > pd/sn activate for 5 - 10 minutes at 25 - 30C, accelerate for 3 -
-    > 6 minutes at 40 - 50C, and after each step spray wash except after
-    > predip
-
--   Electroless copper for 20 - 30 minutes at 45C, then spray wash
-
--   Electroplate for 45 - 90 minutes at room temp then spray wash
-
--   Repeat entire process
-
-    -   When finished the outer layers, add photoresist and develop them
-        > for etch resist, then send to the next section
-
-Print Module
-
--   Import solder mask
-
--   Import lpi developer
-
--   Spray coat solder mask
-
--   Cook it at 70 - 80C for 20 - 30 mins
-
--   Evaporate coating on pads with uv laser
-
--   Develop mask with lpi developer for 30 - 120 mins
-
-Bath Module
-
--   Import complete board
-
--   Add HASL
-
--   If enig:
-
-    -   Import Modified Watt or Sulfamate nickel plating solution
-
-    -   Import microetch then pressurize, and keep at temp from 25 -
-        > 35C, if 40C+, then H~2~O~2~ decomposes
-
-    -   Import tin or gold plating solution
-
-    -   Microetch for 1 - 2 minutes at room temp
-
-    -   Plate nickel at 50 - 70C until target thickness (50 - 150
-        > microinches)
-
-    -   Plate tin or gold (stuff later)
-
-    -   Spray wash after each step
-
--   Add other types later
-
--   Route and test, then ship
-
-</details>
+I couldn't make an microcontroller in a day... my bad, ill try to ship in the next 3 days
